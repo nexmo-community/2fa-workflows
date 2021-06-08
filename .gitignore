@@ -1,6 +1,7 @@
 /node_modules/
 /public/build/
 /data/sqlite.db
+sessions
 
 .DS_Store
 .env
