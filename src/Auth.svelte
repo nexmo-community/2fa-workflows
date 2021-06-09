@@ -36,7 +36,7 @@
   Authenticate
 </h2>
 
-<form action="/login">
+<form action="/authenticate">
   <label>Username:
     <input type="text" bind:value={username} readonly />
   </label>

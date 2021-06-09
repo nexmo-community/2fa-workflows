@@ -38,6 +38,10 @@
   <label>Username:
     <input type="text" bind:value={username} />
   </label>
+
+  <label>Password:
+    <input type="password" />
+  </label>
   
   <button on:click={logIn}>Get Code</button>
   <br/><br/>

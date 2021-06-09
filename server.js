@@ -24,7 +24,6 @@ db.serialize(function(){
   if (!exists) {
     db.run('CREATE TABLE Sessions (phone NUMERIC, id TEXT)');
     db.run('CREATE TABLE Users (phone NUMERIC, username TEXT)');
-    db.run('CREATE TABLE Factors (phone NUMERIC, username TEXT, email TEXT, password TEXT)');
   }
 });
 
@@ -77,8 +76,6 @@ app.post('/register', function(request, response) {
   db.each('SELECT * FROM Sessions WHERE phone = $phone', {
     $phone: request.body.phone
   }, function(error, sesh) {
-    
-    console.log(sesh);
       
     vonage.verify.check({
       request_id: sesh.id,
@@ -108,12 +105,7 @@ app.post('/register', function(request, response) {
 // user enters their new or existing username
 // they then receive a client-side cookie keeping them semi-logged in
 app.post('/login', function(request, response) {
-  let allowed = RegExp('[A-Za-z0-9_-]+');
   let username = request.body.username;
-  if (!allowed.test(username)) {
-    response.status(500).send({message: 'Please use basic characters for your username'});
-    return;
-  }
   
   db.each('SELECT * FROM Users WHERE username = $username', {
     $username: username 
@@ -127,7 +119,6 @@ app.post('/login', function(request, response) {
       if (err) {
         response.status(500).send({message:'Error processing verification request'});
       } else {
-        console.log(result);
         db.run('INSERT INTO Sessions (phone, id) VALUES ($phone, $id)', {
           $phone: user.phone,
           $id: result.request_id
