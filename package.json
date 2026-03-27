@@ -27,6 +27,6 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "sirv-cli": "^1.0.0",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^6.0.0"
   }
 }
